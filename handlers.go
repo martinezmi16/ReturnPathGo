@@ -175,4 +175,37 @@ func delAnimal( w http.ResponseWriter, r *http.Request ){
     fmt.Fprintf( w, "Removes animal from db" )
     fmt.Println( "Endpoint Hit: delAnimal" )
 
+    vars := mux.Vars( r )
+    id := vars[ "id" ]
+    id_int, err := strconv.Atoi( id )
+
+    if err != nil && id_int > 0{
+        fmt.Fprintf( w, "Please enter valid animal ID" )
+
+    } else {
+
+    
+
+
+        currentAnimal := new( Animal)
+        stmt, err := DBCon.Prepare("DELETE FROM animals WHERE id=$1")
+        checkErr( err )
+
+
+
+        res, err := stmt.Exec(1)
+        checkErr(err)
+
+        affect, err := res.RowsAffected()
+        checkErr(err)
+
+        fmt.Println(affect, "rows changed")
+
+
+
+        fmt.Fprintf( w, "ID: " + id )
+        json.NewEncoder( w ).Encode( currentAnimal )
+
+    }
+
 }

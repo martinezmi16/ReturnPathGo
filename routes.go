@@ -37,6 +37,13 @@ var routes = Routes{
     },
 
     Route{
+        "addAnimal",
+        "POST",
+        "/animals",
+        addAnimal,
+    },
+
+    Route{
         "returnOneAnimal",
         "GET",
         "/animals/{id}",
@@ -44,11 +51,13 @@ var routes = Routes{
     },
 
     Route{
-        "addAnimal",
-        "POST",
-        "/animals",
-        addAnimal,
+        "delAnimal",
+        "DELETE",
+        "/animals/{id}",
+        delAnimal,
     },
+
+
     
 
 }
